@@ -63,7 +63,6 @@ class PlaceholderFragment : BaseFragment() {
                 )
             }
 
-        sectionLabel = binding.sectionLabel
         newsList = binding.newsList
         pageViewModel.text.observe(viewLifecycleOwner, EventObserver {
             sectionLabel.text = it
