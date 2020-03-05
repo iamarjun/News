@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.news.R
 import com.example.news.databinding.ArticleItemBinding
 import com.example.news.model.Article
 import com.example.news.ui.util.GlideApp
@@ -28,6 +29,8 @@ class NewsListAdapter(private val articles: List<Article?>) :
 
         GlideApp.with(holder.itemView)
             .load(article?.urlToImage)
+            .centerCrop()
+            .placeholder(R.drawable.ic_news)
             .into(holder.thumbnail)
 
         holder.headline.text = article?.title

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +23,6 @@ class PlaceholderFragment : BaseFragment() {
     private lateinit var pageViewModel: PageViewModel
     private lateinit var newsAdapter: NewsListAdapter
     private lateinit var binding: FragmentMainBinding
-    private lateinit var sectionLabel: TextView
     private lateinit var newsList: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +63,7 @@ class PlaceholderFragment : BaseFragment() {
 
         newsList = binding.newsList
         pageViewModel.text.observe(viewLifecycleOwner, EventObserver {
-            sectionLabel.text = it
+//            sectionLabel.text = it
         })
     }
 
