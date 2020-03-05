@@ -3,7 +3,7 @@ package com.example.news.di.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.news.MainViewModel
-import com.example.news.ui.main.PageViewModel
+import com.example.news.ui.PageViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

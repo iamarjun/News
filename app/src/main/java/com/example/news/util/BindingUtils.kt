@@ -1,4 +1,4 @@
-package com.example.news.ui.util
+package com.example.news.util
 
 import android.text.TextUtils
 import java.sql.Timestamp

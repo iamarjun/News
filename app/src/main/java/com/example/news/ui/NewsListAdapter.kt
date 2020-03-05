@@ -1,4 +1,4 @@
-package com.example.news.ui.main
+package com.example.news.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.news.R
 import com.example.news.databinding.ArticleItemBinding
 import com.example.news.model.Article
-import com.example.news.ui.util.BindingUtils
-import com.example.news.ui.util.GlideApp
-import java.util.*
+import com.example.news.util.BindingUtils
+import com.example.news.util.GlideApp
 
 class NewsListAdapter(private val articles: List<Article?>) :
     RecyclerView.Adapter<NewsListAdapter.ViewHolder>() {

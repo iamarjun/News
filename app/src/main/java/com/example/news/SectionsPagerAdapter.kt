@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.news.model.Source
-import com.example.news.ui.main.PlaceholderFragment
+import com.example.news.ui.PlaceholderFragment
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

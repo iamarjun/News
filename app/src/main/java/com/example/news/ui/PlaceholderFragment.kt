@@ -1,4 +1,4 @@
-package com.example.news.ui.main
+package com.example.news.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.news.BaseFragment
 import com.example.news.databinding.FragmentMainBinding
 import com.example.news.model.Source
-import com.example.news.ui.util.showToast
+import com.example.news.util.showToast
 import com.momentsnap.android.EventObserver
 
 /**
@@ -36,19 +36,28 @@ class PlaceholderFragment : BaseFragment() {
     ): View? {
 
         binding = FragmentMainBinding.inflate(layoutInflater, container, false)
-        Log.d(TAG, "onCreateView #${arguments?.getInt(ARG_SECTION_NUMBER) ?: 1}")
+        Log.d(
+            TAG, "onCreateView #${arguments?.getInt(
+                ARG_SECTION_NUMBER
+            ) ?: 1}")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d(TAG, "onViewCreated #${arguments?.getInt(ARG_SECTION_NUMBER) ?: 1}")
+        Log.d(
+            TAG, "onViewCreated #${arguments?.getInt(
+                ARG_SECTION_NUMBER
+            ) ?: 1}")
 
         pageViewModel =
             ViewModelProvider(this, viewModelFactory).get(PageViewModel::class.java).apply {
                 setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-                Log.d(TAG, "onCreate #${arguments?.getInt(ARG_SECTION_NUMBER) ?: 1}")
+                Log.d(
+                    TAG, "onCreate #${arguments?.getInt(
+                        ARG_SECTION_NUMBER
+                    ) ?: 1}")
                 setSource(
                     arguments?.getParcelable(ARG_NEW_SOURCE) ?: Source(
                         "abc-general",
@@ -70,7 +79,10 @@ class PlaceholderFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        Log.d(TAG, "onResume #${arguments?.getInt(ARG_SECTION_NUMBER) ?: 1}")
+        Log.d(
+            TAG, "onResume #${arguments?.getInt(
+                ARG_SECTION_NUMBER
+            ) ?: 1}")
 
         pageViewModel.articles.observe(viewLifecycleOwner, EventObserver { articleList ->
             articleList?.let {

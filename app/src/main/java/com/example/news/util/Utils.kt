@@ -1,4 +1,4 @@
-package com.example.news.ui.util
+package com.example.news.util
 
 import android.app.Activity
 import android.widget.Toast

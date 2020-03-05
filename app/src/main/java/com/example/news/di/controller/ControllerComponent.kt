@@ -2,7 +2,7 @@ package com.example.news.di.controller
 
 import com.example.news.BaseActivity
 import com.example.news.MainActivity
-import com.example.news.ui.main.PlaceholderFragment
+import com.example.news.ui.PlaceholderFragment
 import dagger.Subcomponent
 
 @Subcomponent(
