@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.news.R
 import com.example.news.databinding.ArticleItemBinding
 import com.example.news.model.Article
+import com.example.news.ui.util.BindingUtils
 import com.example.news.ui.util.GlideApp
+import java.util.*
 
 class NewsListAdapter(private val articles: List<Article?>) :
     RecyclerView.Adapter<NewsListAdapter.ViewHolder>() {
@@ -35,8 +37,11 @@ class NewsListAdapter(private val articles: List<Article?>) :
 
         holder.headline.text = article?.title
 
-        //holder.timestamp.text = BindingUtils.getElapsedTime(Date(article?.publishedAt).time)
+        val date = BindingUtils.stringToDate(article?.publishedAt)?.time
 
+        date?.let {
+            holder.timestamp.text = "${BindingUtils.getElapsedTime(it)} ago"
+        }
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

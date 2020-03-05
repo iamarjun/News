@@ -1,12 +1,8 @@
 package com.example.news.ui.util
 
-import android.content.Context
-import android.net.Uri
 import android.text.TextUtils
-import android.widget.ImageView
-import com.bumptech.glide.request.RequestOptions
-import com.example.news.R
 import java.sql.Timestamp
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,6 +28,18 @@ object BindingUtils {
             timeElapsedInSeconds /= 86400
             timeElapsedInSeconds.toString() + "d"
         }
+    }
+
+    fun stringToDate(date: String?): Date? {
+        val format =
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+        try {
+            return format.parse(date)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        return null
     }
 
     /**
