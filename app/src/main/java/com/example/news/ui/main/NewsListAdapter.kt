@@ -30,7 +30,7 @@ class NewsListAdapter(private val articles: List<Article?>) :
         GlideApp.with(holder.itemView)
             .load(article?.urlToImage)
             .centerCrop()
-            .placeholder(R.drawable.ic_news)
+            .placeholder(R.drawable.ic_news_dark)
             .into(holder.thumbnail)
 
         holder.headline.text = article?.title
