@@ -1,5 +1,6 @@
 package com.example.news.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,20 +11,26 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.news.BaseFragment
+import com.example.news.NewsDetail
 import com.example.news.databinding.FragmentMainBinding
+import com.example.news.model.Article
 import com.example.news.model.Source
 import com.example.news.util.showToast
+import com.example.news.util.viewLifecycle
 import com.momentsnap.android.EventObserver
 
 /**
  * A placeholder fragment containing a simple view.
  */
-class PlaceholderFragment : BaseFragment() {
+class PlaceholderFragment : BaseFragment(), NewsListAdapter.OnNewsClickListener {
 
     private lateinit var pageViewModel: PageViewModel
     private lateinit var newsAdapter: NewsListAdapter
-    private lateinit var binding: FragmentMainBinding
+    private var binding: FragmentMainBinding by viewLifecycle()
     private lateinit var newsList: RecyclerView
+
+
+    private var listener: NewsListAdapter.OnNewsClickListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         controllerComponent.inject(this)
@@ -36,10 +43,12 @@ class PlaceholderFragment : BaseFragment() {
     ): View? {
 
         binding = FragmentMainBinding.inflate(layoutInflater, container, false)
+        listener = this
         Log.d(
             TAG, "onCreateView #${arguments?.getInt(
                 ARG_SECTION_NUMBER
-            ) ?: 1}")
+            ) ?: 1}"
+        )
         return binding.root
     }
 
@@ -49,7 +58,8 @@ class PlaceholderFragment : BaseFragment() {
         Log.d(
             TAG, "onViewCreated #${arguments?.getInt(
                 ARG_SECTION_NUMBER
-            ) ?: 1}")
+            ) ?: 1}"
+        )
 
         pageViewModel =
             ViewModelProvider(this, viewModelFactory).get(PageViewModel::class.java).apply {
@@ -57,7 +67,8 @@ class PlaceholderFragment : BaseFragment() {
                 Log.d(
                     TAG, "onCreate #${arguments?.getInt(
                         ARG_SECTION_NUMBER
-                    ) ?: 1}")
+                    ) ?: 1}"
+                )
                 setSource(
                     arguments?.getParcelable(ARG_NEW_SOURCE) ?: Source(
                         "abc-general",
@@ -82,13 +93,14 @@ class PlaceholderFragment : BaseFragment() {
         Log.d(
             TAG, "onResume #${arguments?.getInt(
                 ARG_SECTION_NUMBER
-            ) ?: 1}")
+            ) ?: 1}"
+        )
 
         pageViewModel.articles.observe(viewLifecycleOwner, EventObserver { articleList ->
             articleList?.let {
 
                 if (!::newsAdapter.isInitialized)
-                    newsAdapter = NewsListAdapter(it)
+                    newsAdapter = NewsListAdapter(it, listener)
 
                 newsList.apply {
                     layoutManager = LinearLayoutManager(context)
@@ -101,6 +113,17 @@ class PlaceholderFragment : BaseFragment() {
         pageViewModel.error.observe(viewLifecycleOwner, EventObserver {
             showToast(it)
         })
+    }
+
+    override fun onDestroy() {
+        listener = null
+        super.onDestroy()
+    }
+
+    override fun onNewsClick(article: Article?) {
+        val intent = Intent(requireActivity(), NewsDetail::class.java)
+        intent.putExtra(NewsDetail.URL, article?.url)
+        startActivity(intent)
     }
 
     companion object {

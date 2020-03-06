@@ -12,8 +12,12 @@ import com.example.news.model.Article
 import com.example.news.util.BindingUtils
 import com.example.news.util.GlideApp
 
-class NewsListAdapter(private val articles: List<Article?>) :
+class NewsListAdapter(private val articles: List<Article?>, private val listener: OnNewsClickListener?) :
     RecyclerView.Adapter<NewsListAdapter.ViewHolder>() {
+
+    interface OnNewsClickListener {
+        fun onNewsClick(article: Article?)
+    }
 
     private lateinit var binding: ArticleItemBinding
 
@@ -40,6 +44,10 @@ class NewsListAdapter(private val articles: List<Article?>) :
 
         date?.let {
             holder.timestamp.text = "${BindingUtils.getElapsedTime(it)} ago"
+        }
+
+        holder.itemView.setOnClickListener {
+            listener?.onNewsClick(article)
         }
     }
 
