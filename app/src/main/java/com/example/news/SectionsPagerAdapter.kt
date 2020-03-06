@@ -28,11 +28,6 @@ class SectionsPagerAdapter(
         )
     }
 
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        return super.instantiateItem(container, position)
-
-    }
-
     override fun getPageTitle(position: Int): CharSequence? {
         return newsSource[position]?.name
     }
