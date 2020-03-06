@@ -17,7 +17,6 @@ class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewPager: ViewPager
     private lateinit var tabs: TabLayout
-    private lateinit var fab: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,7 +30,6 @@ class MainActivity : BaseActivity() {
 
         viewPager = binding.viewPager
         tabs = binding.tabs
-        fab = binding.fab
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java).apply {
             getNewsSource()
@@ -54,10 +52,5 @@ class MainActivity : BaseActivity() {
         viewModel.error.observe(this, EventObserver {
             showToast(it)
         })
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
     }
 }
