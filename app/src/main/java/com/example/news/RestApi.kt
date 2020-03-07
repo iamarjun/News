@@ -12,21 +12,21 @@ interface RestApi {
 
     @Headers("X-Api-Key:${BuildConfig.API_KEY}")
     @GET("sources")
-    fun getSources(
+    suspend fun getSources(
         @Query("category") category: String?,
         @Query("country") country: String?,
         @Query("language") language: String?,
         @Query("pageSize") pageSize: Int?
-    ): Observable<NewsSource?>
+    ): NewsSource
 
     @Headers("X-Api-Key:${BuildConfig.API_KEY}")
     @GET("top-headlines")
-    fun getNews(
+    suspend fun getNews(
         @Query("source") source: String?,
         @Query("category") category: String?,
         @Query("country") country: String?,
         @Query("language") language: String?,
         @Query("pageSize") pageSize: Int?
-    ): Observable<NewsList?>
+    ): NewsList
 
 }

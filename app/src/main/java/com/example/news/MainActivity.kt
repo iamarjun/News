@@ -31,21 +31,17 @@ class MainActivity : BaseActivity() {
         viewPager = binding.viewPager
         tabs = binding.tabs
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java).apply {
-            getNewsSource()
-        }
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        viewModel.newsSource.observe(this, EventObserver { newSource ->
-            newSource?.let {
-                it.sources?.let {
-                    adapter = SectionsPagerAdapter(
-                        it,
-                        this,
-                        supportFragmentManager
-                    )
-                    viewPager.adapter = adapter
-                    tabs.setupWithViewPager(viewPager)
-                }
+        viewModel.newsSource.observe(this, EventObserver {
+            it.sources?.let {
+                adapter = SectionsPagerAdapter(
+                    it,
+                    this,
+                    supportFragmentManager
+                )
+                viewPager.adapter = adapter
+                tabs.setupWithViewPager(viewPager)
             }
         })
 
