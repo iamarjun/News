@@ -13,17 +13,4 @@ class MainViewModel @Inject constructor(private val restApi: RestApi) : BaseView
         val data = Event(restApi.getSources(category.title, "us", "en", 10))
                 emit(data)
     }
-
-//    fun getNewsSource() {
-//        compositeDisposable.add(
-//            restApi.getSources(category.title, "us", "en", 10)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//                    { newsSource.postValue(Event(it)) },
-//                    { error.postValue(Event(it.localizedMessage)) }
-//                )
-//        )
-//
-//    }
 }

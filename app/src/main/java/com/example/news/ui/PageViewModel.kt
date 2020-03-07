@@ -31,17 +31,5 @@ class PageViewModel @Inject constructor(private val restApi: RestApi) : BaseView
             val data = Event(restApi.getNews(source.id, category.title, "us", "en", 10).articles)
             emit(data)
         }
-
-
-//        compositeDisposable.add(
-//            restApi.getNews(source.id, category.title, "us", "en", 10)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//                    { articles.postValue(Event(it?.articles)) },
-//                    { error.postValue(Event(it.localizedMessage)) }
-//                )
-//        )
-
     }
 }
