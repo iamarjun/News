@@ -1,4 +1,4 @@
-package com.momentsnap.android
+package com.example.news.util
 
 import androidx.lifecycle.Observer
 

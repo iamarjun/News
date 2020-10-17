@@ -9,6 +9,7 @@ import java.util.*
 
 object BindingUtils {
     private val timeZone: TimeZone = TimeZone.getTimeZone("UTC")
+
     /**
      * @param utcTimeString Time in UTC:+00 - Example: 2018-05-10T10:13:00Z
      * @return Formatted String of time elapsed by now in min/hrs/days
@@ -16,17 +17,22 @@ object BindingUtils {
     fun getElapsedTime(utcTimeString: Long): String {
         var timeElapsedInSeconds =
             (System.currentTimeMillis() - utcTimeString) / 1000
-        return if (timeElapsedInSeconds < 60) {
-            "less than 1m"
-        } else if (timeElapsedInSeconds < 3600) {
-            timeElapsedInSeconds /= 60
-            timeElapsedInSeconds.toString() + "m"
-        } else if (timeElapsedInSeconds < 86400) {
-            timeElapsedInSeconds /= 3600
-            timeElapsedInSeconds.toString() + "h"
-        } else {
-            timeElapsedInSeconds /= 86400
-            timeElapsedInSeconds.toString() + "d"
+        return when {
+            timeElapsedInSeconds < 60 -> {
+                "less than 1m"
+            }
+            timeElapsedInSeconds < 3600 -> {
+                timeElapsedInSeconds /= 60
+                timeElapsedInSeconds.toString() + "m"
+            }
+            timeElapsedInSeconds < 86400 -> {
+                timeElapsedInSeconds /= 3600
+                timeElapsedInSeconds.toString() + "h"
+            }
+            else -> {
+                timeElapsedInSeconds /= 86400
+                timeElapsedInSeconds.toString() + "d"
+            }
         }
     }
 
@@ -163,6 +169,7 @@ object BindingUtils {
     }
 
     private fun capitalise(s: String): String {
-        return if (TextUtils.isEmpty(s)) s else s.substring(0, 1).toUpperCase(Locale.ROOT) + s.substring(1)
+        return if (TextUtils.isEmpty(s)) s else s.substring(0, 1)
+            .toUpperCase(Locale.ROOT) + s.substring(1)
     }
 }

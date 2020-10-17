@@ -9,8 +9,8 @@ interface RestApi {
 
     @GET("top-headlines")
     suspend fun getNews(
-        @Query("country") country: String?,
-        @Query("pageSize") pageSize: Int?
+        @Query("country") country: String,
+        @Query("page") page: Int
     ): NewsResponse
 
 }
