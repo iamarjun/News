@@ -11,4 +11,6 @@
     <string name="tab_text_9">Tab 9</string>
     <string name="tab_text_10">Tab 10</string>
     <string name="see_full_story">See Full Story</string>
+    <string name="location">Location</string>
+    <string name="choose_your_location">Choose your location</string>
 </resources>

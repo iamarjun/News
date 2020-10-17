@@ -1,0 +1,67 @@
+package com.example.news.model
+
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Country(
+   val name: String,
+   val code: String,
+   var isSelected: Boolean
+) : Parcelable
+
+val countries = listOf(
+   Country("United Arab Emirates", "ae", false),
+   Country("Argentine", "ar", false),
+   Country("Austria", "at", false),
+   Country("Australia", "au", false),
+   Country("Belgium", "be", false),
+   Country("Bulgaria", "bg", false),
+   Country("Brazil", "br", false),
+   Country("Canada", "ca", false),
+   Country("China", "cn", false),
+   Country("Colombia", "co", false),
+   Country("Cuba", "cu", false),
+   Country("Czech Republic", "cz", false),
+   Country("Germany", "de", false),
+   Country("Egypt", "eg", false),
+   Country("French", "fr", false),
+   Country("United Kingdom of Great Britain and Northern Ireland", "gb", false),
+   Country("Greece", "gr", false),
+   Country("Hong Kong", "hk", false),
+   Country("Hungary", "hu", false),
+   Country("Indonesia", "id", false),
+   Country("Ireland", "ie", false),
+   Country("India", "in", false),
+   Country("Italian", "it", false),
+   Country("Japan", "jp", false),
+   Country("Korea", "kr", false),
+   Country("Lithuania", "lt", false),
+   Country("Latvia", "lv", false),
+   Country("Morocco", "ma", false),
+   Country("Mexico", "mx", false),
+   Country("Malaysia", "my", false),
+   Country("Nigeria", "ng", false),
+   Country("Netherlands", "nl", false),
+   Country("Norway", "no", false),
+   Country("New Zealand", "nz", false),
+   Country("Philippines", "ph", false),
+   Country("Poland", "po", false),
+   Country("Portuguese", "pt", false),
+   Country("Romania", "ro", false),
+   Country("Serbia", "rs", false),
+   Country("Russian", "ru", false),
+   Country("Saudi Arabia", "sa", false),
+   Country("Sweden", "se", false),
+   Country("Singapore", "sg", false),
+   Country("Canada", "ca", false),
+   Country("Slovenia", "si", false),
+   Country("Slovakia", "sk", false),
+   Country("Thailand", "th", false),
+   Country("Turkey", "tr", false),
+   Country("Taiwan", "tw", false),
+   Country("Ukraine", "ua", false),
+   Country("United States of America", "us", false),
+   Country("Venezuela", "ve", false),
+   Country("South Africa", "za", false),
+)

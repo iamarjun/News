@@ -1,6 +1,8 @@
 package com.example.news.ui.master
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -8,12 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news.R
 import com.example.news.databinding.ActivityMainBinding
 import com.example.news.model.Article
-import com.example.news.ui.base.BaseActivity
 import com.example.news.ui.detail.NewsDetailActivity
+import com.example.news.ui.location.LocationDialogFragment
 import com.example.news.util.EqualSpacingItemDecoration
 import com.example.news.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -41,11 +42,27 @@ class NewsActivity : AppCompatActivity() {
             adapter = newsAdapter
         }
 
-        lifecycleScope.launch {
-            viewModel.getNewsStream("in").collectLatest {
-                newsAdapter.submitData(it)
+        viewModel.country.observe(this) {
+            lifecycleScope.launch {
+                viewModel.getNewsStream(it).collectLatest {
+                    newsAdapter.submitData(it)
+                }
             }
         }
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.location -> {
+                LocationDialogFragment.newInstance().show(supportFragmentManager, "dialog")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
