@@ -16,7 +16,6 @@ class NewsDetail : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        controllerComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         mWebview = WebView(this)
@@ -47,8 +46,8 @@ class NewsDetail : BaseActivity() {
             }
         }
 
-        intent?.let {
-            mWebview.loadUrl(it.getStringExtra(URL))
+        intent?.getStringExtra(URL)?.let {
+            mWebview.loadUrl(it)
         }
 
         setContentView(mWebview)

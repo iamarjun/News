@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +25,7 @@ import com.momentsnap.android.EventObserver
  */
 class PlaceholderFragment : BaseFragment(), NewsListAdapter.OnNewsClickListener {
 
-    private lateinit var pageViewModel: PageViewModel
+    private val pageViewModel: PageViewModel by viewModels()
     private lateinit var newsAdapter: NewsListAdapter
     private var binding: FragmentMainBinding by viewLifecycle()
     private lateinit var newsList: RecyclerView
@@ -33,7 +34,6 @@ class PlaceholderFragment : BaseFragment(), NewsListAdapter.OnNewsClickListener 
     private var listener: NewsListAdapter.OnNewsClickListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        controllerComponent.inject(this)
         super.onCreate(savedInstanceState)
     }
 
@@ -61,25 +61,18 @@ class PlaceholderFragment : BaseFragment(), NewsListAdapter.OnNewsClickListener 
             ) ?: 1}"
         )
 
-        pageViewModel =
-            ViewModelProvider(this, viewModelFactory).get(PageViewModel::class.java).apply {
-                setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-                Log.d(
-                    TAG, "onCreate #${arguments?.getInt(
-                        ARG_SECTION_NUMBER
-                    ) ?: 1}"
-                )
-                setSource(
-                    arguments?.getParcelable(ARG_NEW_SOURCE) ?: Source(
-                        "abc-general",
-                        "us",
-                        "Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos at ABCNews.com.",
-                        "abc-news",
-                        "en",
-                        "ABC News", "https://abcnews.go.com"
-                    )
-                )
-            }
+        pageViewModel.setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+        Log.d(
+            TAG, "onCreate #${arguments?.getInt(
+                ARG_SECTION_NUMBER
+            ) ?: 1}"
+        )
+        pageViewModel.setSource(
+            arguments?.getParcelable(ARG_NEW_SOURCE) ?: Source(
+                "abc-general",
+                "us",
+            )
+        )
 
         newsList = binding.newsList
         pageViewModel.text.observe(viewLifecycleOwner, EventObserver {
@@ -108,10 +101,6 @@ class PlaceholderFragment : BaseFragment(), NewsListAdapter.OnNewsClickListener 
                     adapter = newsAdapter
                 }
             }
-        })
-
-        pageViewModel.error.observe(viewLifecycleOwner, EventObserver {
-            showToast(it)
         })
     }
 

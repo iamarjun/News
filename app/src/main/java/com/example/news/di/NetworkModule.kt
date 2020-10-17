@@ -1,26 +1,35 @@
-package com.example.news.di.network
+package com.example.news.di
 
 import com.example.news.BuildConfig
 import com.example.news.RestApi
-import com.example.news.di.app.ApplicationScope
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 @Module
-class NetworkModule {
+@InstallIn(ApplicationComponent::class)
+object NetworkModule {
 
-    @ApplicationScope
     @Provides
     fun providesOkhttpClient(): OkHttpClient {
-        return OkHttpClient().newBuilder()
+
+        return OkHttpClient.Builder()
+            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .addNetworkInterceptor {
+                val requestBuilder: Request.Builder = it.request().newBuilder()
+                requestBuilder.header("X-Api-Key", BuildConfig.API_KEY)
+                it.proceed(requestBuilder.build())
+            }
             .build()
     }
 
-    @ApplicationScope
     @Provides
     fun provideRetrofitBuilder(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
@@ -30,7 +39,6 @@ class NetworkModule {
             .build()
     }
 
-    @ApplicationScope
     @Provides
     fun provideRestApi(retrofit: Retrofit): RestApi {
         return retrofit.create(RestApi::class.java)

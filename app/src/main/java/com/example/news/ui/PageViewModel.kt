@@ -1,18 +1,14 @@
 package com.example.news.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.liveData
-import com.example.news.BaseViewModel
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.*
 import com.example.news.RestApi
 import com.example.news.model.Article
 import com.example.news.model.Source
 import com.momentsnap.android.Event
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Inject
 
-class PageViewModel @Inject constructor(private val restApi: RestApi) : BaseViewModel() {
+class PageViewModel @ViewModelInject constructor(private val restApi: RestApi) : ViewModel() {
 
     private val _index by lazy { MutableLiveData<Event<Int>>() }
     lateinit var articles: LiveData<Event<List<Article?>?>>
@@ -28,7 +24,7 @@ class PageViewModel @Inject constructor(private val restApi: RestApi) : BaseView
     fun setSource(source: Source) {
 
         articles = liveData(Dispatchers.IO) {
-            val data = Event(restApi.getNews(source.id, category.title, "us", "en", 10).articles)
+            val data = Event(restApi.getNews("us", 10).articles)
             emit(data)
         }
     }

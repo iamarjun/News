@@ -1,16 +1,8 @@
 package com.example.news
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
-import com.example.news.model.NewsSource
-import com.momentsnap.android.Event
-import kotlinx.coroutines.Dispatchers
-import javax.inject.Inject
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.ViewModel
 
-class MainViewModel @Inject constructor(private val restApi: RestApi) : BaseViewModel() {
+class MainViewModel @ViewModelInject constructor(private val restApi: RestApi) : ViewModel() {
 
-    val newsSource: LiveData<Event<NewsSource>> = liveData(Dispatchers.IO) {
-        val data = Event(restApi.getSources(category.title, "us", "en", 10))
-                emit(data)
-    }
 }

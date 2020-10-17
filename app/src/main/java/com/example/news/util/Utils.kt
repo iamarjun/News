@@ -1,9 +1,12 @@
 package com.example.news.util
 
 import android.app.Activity
+import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -61,4 +64,3 @@ fun <T> Fragment.viewLifecycle(bindUntilEvent: Lifecycle.Event = Lifecycle.Event
             this.binding = value
         }
     }
-
