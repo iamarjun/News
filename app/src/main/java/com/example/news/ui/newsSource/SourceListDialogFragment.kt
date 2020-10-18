@@ -28,19 +28,17 @@ class SourceListDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel.getSource.observe(viewLifecycleOwner) {
-            list.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = SourceAdapter(it, object : SourceAdapter.Interaction {
-                    override fun interact(source: Source) {
-                        Timber.d("$source")
-                        if(source.isSelected)
-                            selectedSources.add(source.id!!)
-                        else
-                            selectedSources.remove(source.id!!)
-                    }
-                })
-            }
+        list.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = SourceAdapter(viewModel.sourceList, object : SourceAdapter.Interaction {
+                override fun interact(source: Source) {
+                    Timber.d("$source")
+                    if(source.isSelected)
+                        selectedSources.add(source.id!!)
+                    else
+                        selectedSources.remove(source.id!!)
+                }
+            })
         }
 
         apply_source_filter.setOnClickListener {
