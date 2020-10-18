@@ -1,19 +1,13 @@
 <resources>
     <string name="app_name">News</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
-    <string name="tab_text_4">Tab 4</string>
-    <string name="tab_text_5">Tab 5</string>
-    <string name="tab_text_6">Tab 6</string>
-    <string name="tab_text_7">Tab 7</string>
-    <string name="tab_text_8">Tab 8</string>
-    <string name="tab_text_9">Tab 9</string>
-    <string name="tab_text_10">Tab 10</string>
     <string name="see_full_story">See Full Story</string>
     <string name="location">Location</string>
     <string name="choose_your_location">Choose your location</string>
     <string name="apply_filter">Apply Filter</string>
     <string name="filter_by_sources">Filter by sources</string>
     <string name="top_headlines">Top Headlines</string>
+    <string name="sort">Sort: Newest</string>
+    <string name="popular">Popular</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
 </resources>

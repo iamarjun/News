@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,6 +70,16 @@ class NewsActivity : LocationBaseActivity() {
                 return false
             }
         })
+
+        binding.sort.setOnClickListener {
+            val popup = PopupMenu(this, it)
+            popup.inflate(R.menu.sort_menu)
+            popup.show()
+            popup.setOnMenuItemClickListener { menuItem ->
+                binding.sort.text = "Sort: ${menuItem.title}"
+                true
+            }
+        }
 
         viewModel.country.observe(this) {
             job?.cancel()

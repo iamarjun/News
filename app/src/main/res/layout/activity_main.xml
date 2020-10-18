@@ -12,8 +12,8 @@
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        app:iconifiedByDefault="false"
         android:background="@color/blue_grey_50"
+        app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,6 +32,19 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackgroundBorderless"
+        android:drawableEnd="@drawable/ic_drop_down"
+        android:gravity="center"
+        android:text="@string/sort"
+        android:textColor="@color/blue_grey_800"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_list"
