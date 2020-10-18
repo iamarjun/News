@@ -15,4 +15,5 @@
     <string name="choose_your_location">Choose your location</string>
     <string name="apply_filter">Apply Filter</string>
     <string name="filter_by_sources">Filter by sources</string>
+    <string name="top_headlines">Top Headlines</string>
 </resources>

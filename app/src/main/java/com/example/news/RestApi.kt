@@ -14,12 +14,14 @@ interface RestApi {
     @GET("top-headlines")
     suspend fun getNewsFromCountry(
         @Query("country") country: String,
+        @Query("q") query: String,
         @Query("page") page: Int
     ): NewsResponse
 
     @GET("top-headlines")
     suspend fun getNewsFromSources(
         @Query("sources") sources: String,
+        @Query("q") query: String,
         @Query("page") page: Int
     ): NewsResponse
 

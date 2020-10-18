@@ -55,10 +55,22 @@ class NewsViewModel @ViewModelInject constructor(private val restApi: RestApi) :
         _sources.value = sources
     }
 
-    fun getNewsStream(country: String? = null, sources: String? = null): Flow<PagingData<Article>> {
+    private val _query by lazy { MutableLiveData<String>() }
+    val query: LiveData<String>
+        get() = _query
+
+    fun setQuery(query: String) {
+        _query.value = query
+    }
+
+    fun getNewsStream(
+        country: String? = null,
+        sources: String? = null,
+        query: String? = null
+    ): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(pageSize = NETWORK_PAGE_SIZE),
-            pagingSourceFactory = { NewsPagingSource(restApi, country, sources) }
+            pagingSourceFactory = { NewsPagingSource(restApi, country, sources, query) }
         ).flow.cachedIn(viewModelScope)
     }
 

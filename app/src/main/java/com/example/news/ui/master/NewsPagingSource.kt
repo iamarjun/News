@@ -11,7 +11,8 @@ private const val PAGE = 1
 class NewsPagingSource(
     private val restApi: RestApi,
     private val country: String? = null,
-    private val sources: String? = null
+    private val sources: String? = null,
+    private val query: String? = null
 ) :
     PagingSource<Int, Article>() {
 
@@ -20,8 +21,8 @@ class NewsPagingSource(
 
         return try {
             val response = when {
-                country != null -> restApi.getNewsFromCountry(country, page)
-                sources != null -> restApi.getNewsFromSources(sources, page)
+                country != null -> restApi.getNewsFromCountry(country, query ?: "", page)
+                sources != null -> restApi.getNewsFromSources(sources, query ?: "", page)
                 else -> throw IllegalStateException()
             }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news.R
@@ -58,6 +59,17 @@ class NewsActivity : LocationBaseActivity() {
             SourceListDialogFragment.newInstance().show(supportFragmentManager, "dialog")
         }
 
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.setQuery(query ?: "")
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+
         viewModel.country.observe(this) {
             job?.cancel()
             job = lifecycleScope.launch {
@@ -71,6 +83,19 @@ class NewsActivity : LocationBaseActivity() {
             job?.cancel()
             job = lifecycleScope.launch {
                 viewModel.getNewsStream(sources = it).collectLatest {
+                    newsAdapter.submitData(it)
+                }
+            }
+        }
+
+        viewModel.query.observe(this) {
+            job?.cancel()
+            job = lifecycleScope.launch {
+                viewModel.getNewsStream(
+                    country = viewModel.country.value,
+                    sources = viewModel.sources.value,
+                    query = it
+                ).collectLatest {
                     newsAdapter.submitData(it)
                 }
             }
