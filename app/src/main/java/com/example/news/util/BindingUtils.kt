@@ -1,6 +1,12 @@
 package com.example.news.util
 
+import android.content.Context
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.text.TextUtils
+import timber.log.Timber
+import java.io.IOException
 import java.sql.Timestamp
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -171,5 +177,21 @@ object BindingUtils {
     private fun capitalise(s: String): String {
         return if (TextUtils.isEmpty(s)) s else s.substring(0, 1)
             .toUpperCase(Locale.ROOT) + s.substring(1)
+    }
+
+    fun getCountryName(context: Context, location: Location): String? {
+        val geocoder = Geocoder(context, Locale.getDefault())
+        val addresses: List<Address>
+        try {
+            addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+            return if (addresses != null && addresses.isNotEmpty()) {
+                addresses[0].locale.isO3Country.substring(0,2).toLowerCase(Locale.ROOT)
+            } else null
+        } catch (ignored: IOException) {
+            //do something
+            Timber.d(ignored)
+        }
+
+        return null
     }
 }

@@ -38,6 +38,12 @@ class LocationDialogFragment : BottomSheetDialogFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = locationAdapter
         }
+
+        viewModel.country.observe(viewLifecycleOwner) {
+            countries.forEachIndexed { index, country ->
+                if (country.code == it) locationAdapter.selected = index
+            }
+        }
     }
 
 

@@ -1,10 +1,10 @@
 package com.example.news.ui.master
 
+import android.location.Location
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news.R
@@ -13,15 +13,20 @@ import com.example.news.model.Article
 import com.example.news.ui.detail.NewsDetailActivity
 import com.example.news.ui.location.LocationDialogFragment
 import com.example.news.ui.newsSource.SourceListDialogFragment
+import com.example.news.util.BindingUtils.getCountryName
 import com.example.news.util.EqualSpacingItemDecoration
 import com.example.news.util.viewBinding
+import com.yayandroid.locationmanager.base.LocationBaseActivity
+import com.yayandroid.locationmanager.configuration.Configurations
+import com.yayandroid.locationmanager.configuration.LocationConfiguration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
-class NewsActivity : AppCompatActivity() {
+class NewsActivity : LocationBaseActivity() {
 
     private val viewModel: NewsViewModel by viewModels()
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::inflate)
@@ -40,6 +45,8 @@ class NewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        getLocation()
 
         binding.newsList.apply {
             layoutManager = LinearLayoutManager(this@NewsActivity)
@@ -84,4 +91,21 @@ class NewsActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onLocationChanged(location: Location) {
+        Timber.d("$location")
+        val country = getCountryName(this, location)
+        Timber.d("$country")
+        country?.let { viewModel.setCountry(it) }
+    }
+
+    override fun onLocationFailed(type: Int) {
+        Timber.d("$type")
+    }
+
+    override fun getLocationConfiguration(): LocationConfiguration =
+        Configurations.defaultConfiguration(
+            "Gimme the permission!",
+            "Would you mind to turn GPS on?"
+        )
 }
