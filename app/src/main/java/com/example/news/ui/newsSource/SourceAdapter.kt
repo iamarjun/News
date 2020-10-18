@@ -14,8 +14,6 @@ class SourceAdapter internal constructor(
 ) :
     RecyclerView.Adapter<SourceAdapter.ViewHolder>() {
 
-    internal var selected = -1
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             FragmentSourceListDialogListDialogItemBinding.inflate(

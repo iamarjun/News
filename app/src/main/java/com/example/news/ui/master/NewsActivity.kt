@@ -16,6 +16,7 @@ import com.example.news.ui.newsSource.SourceListDialogFragment
 import com.example.news.util.EqualSpacingItemDecoration
 import com.example.news.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,8 @@ class NewsActivity : AppCompatActivity() {
     private val viewModel: NewsViewModel by viewModels()
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::inflate)
     private val bottomSheet: LocationDialogFragment by lazy { LocationDialogFragment.newInstance() }
+
+    private var job: Job? = null
 
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter(object : NewsAdapter.OnNewsClickListener {
@@ -49,8 +52,18 @@ class NewsActivity : AppCompatActivity() {
         }
 
         viewModel.country.observe(this) {
-            lifecycleScope.launch {
-                viewModel.getNewsStream(it).collectLatest {
+            job?.cancel()
+            job = lifecycleScope.launch {
+                viewModel.getNewsStream(country = it).collectLatest {
+                    newsAdapter.submitData(it)
+                }
+            }
+        }
+
+        viewModel.sources.observe(this) {
+            job?.cancel()
+            job = lifecycleScope.launch {
+                viewModel.getNewsStream(sources = it).collectLatest {
                     newsAdapter.submitData(it)
                 }
             }

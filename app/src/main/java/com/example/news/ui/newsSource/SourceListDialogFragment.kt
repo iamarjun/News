@@ -17,6 +17,7 @@ import timber.log.Timber
 class SourceListDialogFragment : BottomSheetDialogFragment() {
 
     private val viewModel by activityViewModels<NewsViewModel>()
+    private val selectedSources = arrayListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +34,18 @@ class SourceListDialogFragment : BottomSheetDialogFragment() {
                 adapter = SourceAdapter(it, object : SourceAdapter.Interaction {
                     override fun interact(source: Source) {
                         Timber.d("$source")
+                        if(source.isSelected)
+                            selectedSources.add(source.id!!)
+                        else
+                            selectedSources.remove(source.id!!)
                     }
                 })
             }
+        }
+
+        apply_source_filter.setOnClickListener {
+            viewModel.setSources(selectedSources.joinToString(separator = ","))
+            dismiss()
         }
     }
 

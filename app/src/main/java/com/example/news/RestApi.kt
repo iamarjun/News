@@ -12,8 +12,14 @@ interface RestApi {
     suspend fun getSources(): SourceResponse
 
     @GET("top-headlines")
-    suspend fun getNews(
+    suspend fun getNewsFromCountry(
         @Query("country") country: String,
+        @Query("page") page: Int
+    ): NewsResponse
+
+    @GET("top-headlines")
+    suspend fun getNewsFromSources(
+        @Query("sources") sources: String,
         @Query("page") page: Int
     ): NewsResponse
 
