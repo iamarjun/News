@@ -1,5 +1,6 @@
 package com.example.news.ui.location
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -42,6 +43,7 @@ class LocationAdapter internal constructor(
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("RestrictedApi")
         fun bind(country: Country) {
             binding.apply {
                 selection.apply {

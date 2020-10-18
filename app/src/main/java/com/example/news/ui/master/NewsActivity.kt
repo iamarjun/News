@@ -23,6 +23,7 @@ class NewsActivity : AppCompatActivity() {
 
     private val viewModel: NewsViewModel by viewModels()
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::inflate)
+    private val bottomSheet: LocationDialogFragment by lazy { LocationDialogFragment.newInstance() }
 
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter(object : NewsAdapter.OnNewsClickListener {
@@ -59,7 +60,7 @@ class NewsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.location -> {
-                LocationDialogFragment.newInstance().show(supportFragmentManager, "dialog")
+                bottomSheet.show(supportFragmentManager, "dialog")
                 true
             }
             else -> super.onOptionsItemSelected(item)

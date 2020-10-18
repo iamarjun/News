@@ -26,8 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:clipToPadding="false"
-        android:paddingTop="@dimen/list_item_spacing_half"
-        android:paddingBottom="@dimen/list_item_spacing_half"
         tools:listitem="@layout/fragment_location_dialog_list_dialog_item" />
 
 </LinearLayout>

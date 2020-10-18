@@ -7,31 +7,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news.R
-import com.example.news.databinding.FragmentLocationDialogListDialogBinding
 import com.example.news.model.Country
 import com.example.news.model.countries
 import com.example.news.ui.master.NewsViewModel
-import com.example.news.util.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.android.synthetic.main.fragment_location_dialog_list_dialog.*
 
-const val ARG_ITEM_COUNT = "item_count"
-
-/**
- *
- * A fragment that shows a list of items as a modal bottom sheet.
- *
- * You can show this modal bottom sheet from your activity like this:
- * <pre>
- *    LocationDialogFragment.newInstance(30).show(supportFragmentManager, "dialog")
- * </pre>
- */
 class LocationDialogFragment : BottomSheetDialogFragment() {
 
-    private val binding: FragmentLocationDialogListDialogBinding by viewBinding(
-        FragmentLocationDialogListDialogBinding::bind
-    )
-
     private val viewModel: NewsViewModel by activityViewModels()
+
+    private val locationAdapter by lazy {
+        LocationAdapter(countries, object : LocationAdapter.Interaction {
+            override fun interact(country: Country) {
+                viewModel.setCountry(country = country.code)
+                dismiss()
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,24 +34,14 @@ class LocationDialogFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.list.apply {
-            layoutManager =
-                LinearLayoutManager(context)
-            adapter = LocationAdapter(countries, object : LocationAdapter.Interaction {
-                override fun interact(country: Country) {
-                    viewModel.setCountry(country = country.code)
-                }
-
-            })
+        list.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = locationAdapter
         }
     }
 
 
     companion object {
-
-        // TODO: Customize parameters
-        fun newInstance(): LocationDialogFragment =
-            LocationDialogFragment()
-
+        fun newInstance(): LocationDialogFragment = LocationDialogFragment()
     }
 }
