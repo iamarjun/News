@@ -13,4 +13,6 @@
     <string name="see_full_story">See Full Story</string>
     <string name="location">Location</string>
     <string name="choose_your_location">Choose your location</string>
+    <string name="apply_filter">Apply Filter</string>
+    <string name="filter_by_sources">Filter by sources</string>
 </resources>

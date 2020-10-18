@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/choose_your_location"
+        android:text="@string/filter_by_sources"
         android:textColor="@color/blue_grey_800"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -21,11 +21,23 @@
         android:background="@color/grey_400"
         android:paddingHorizontal="8dp" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:clipToPadding="false"
-        tools:listitem="@layout/fragment_location_dialog_list_dialog_item" />
+        android:paddingTop="@dimen/list_item_spacing_half"
+        android:paddingBottom="@dimen/list_item_spacing_half"
+        tools:context=".ui.newsSource.SourceListDialogFragment"
+        tools:listitem="@layout/fragment_source_list_dialog_list_dialog_item" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/apply_source_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/apply_filter" />
 
 </LinearLayout>

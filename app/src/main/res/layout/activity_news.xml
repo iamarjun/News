@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/blue_50"
     tools:context=".ui.detail.NewsDetailActivity">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -77,7 +77,7 @@
         android:drawableEnd="@drawable/ic_arrow"
         android:gravity="center"
         android:text="@string/see_full_story"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/blue_800"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

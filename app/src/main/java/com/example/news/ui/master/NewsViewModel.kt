@@ -1,16 +1,14 @@
 package com.example.news.ui.master
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.news.RestApi
 import com.example.news.model.Article
+import com.example.news.model.Source
 import kotlinx.coroutines.flow.Flow
 
 class NewsViewModel @ViewModelInject constructor(private val restApi: RestApi) : ViewModel() {
@@ -29,6 +27,12 @@ class NewsViewModel @ViewModelInject constructor(private val restApi: RestApi) :
             pagingSourceFactory = { NewsPagingSource(restApi, country) }
         ).flow.cachedIn(viewModelScope)
     }
+
+    val getSource: LiveData<List<Source>>
+        get() = liveData {
+            val response = restApi.getSources()
+            emit(response.sources)
+        }
 
     companion object {
         private const val NETWORK_PAGE_SIZE = 10

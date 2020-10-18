@@ -1,72 +1,67 @@
-package com.example.news.ui.location
+package com.example.news.ui.newsSource
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.news.R
-import com.example.news.databinding.FragmentLocationDialogListDialogItemBinding
-import com.example.news.model.Country
+import com.example.news.databinding.FragmentSourceListDialogListDialogItemBinding
+import com.example.news.model.Source
 
-class LocationAdapter internal constructor(
-    private val countries: List<Country>,
+class SourceAdapter internal constructor(
+    private val sources: List<Source>,
     private val interaction: Interaction? = null
 ) :
-    RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
+    RecyclerView.Adapter<SourceAdapter.ViewHolder>() {
 
     internal var selected = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            FragmentLocationDialogListDialogItemBinding.inflate(
+            FragmentSourceListDialogListDialogItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ),
-            interaction
+            ), interaction
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val country = countries[position]
-        country.isSelected = selected == position
-        holder.bind(country)
+        val source = sources[position]
+        holder.bind(source)
     }
 
     override fun getItemCount(): Int {
-        return countries.size
+        return sources.size
     }
 
     inner class ViewHolder internal constructor(
-        private val binding: FragmentLocationDialogListDialogItemBinding,
+        private val binding: FragmentSourceListDialogListDialogItemBinding,
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("RestrictedApi")
-        fun bind(country: Country) {
+        fun bind(source: Source) {
             binding.apply {
                 selection.apply {
-                    isChecked = country.isSelected
-                    text = country.name
+                    isChecked = source.isSelected
+                    text = source.name
                     setTextColor(
-                        if (country.isSelected) ContextCompat.getColor(
+                        if (source.isSelected) ContextCompat.getColor(
                             itemView.context,
                             R.color.blue_800
                         ) else ContextCompat.getColor(itemView.context, R.color.black)
                     )
                     setOnClickListener {
-                        selected = absoluteAdapterPosition
+                        source.isSelected = !source.isSelected
                         notifyDataSetChanged()
-                        interaction?.interact(country)
+                        interaction?.interact(source)
                     }
                 }
             }
         }
     }
 
-
     interface Interaction {
-        fun interact(country: Country)
+        fun interact(source: Source)
     }
 }

@@ -12,6 +12,7 @@ import com.example.news.databinding.ActivityMainBinding
 import com.example.news.model.Article
 import com.example.news.ui.detail.NewsDetailActivity
 import com.example.news.ui.location.LocationDialogFragment
+import com.example.news.ui.newsSource.SourceListDialogFragment
 import com.example.news.util.EqualSpacingItemDecoration
 import com.example.news.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +42,10 @@ class NewsActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@NewsActivity)
             addItemDecoration(EqualSpacingItemDecoration(32))
             adapter = newsAdapter
+        }
+
+        binding.sourceFab.setOnClickListener {
+            SourceListDialogFragment.newInstance().show(supportFragmentManager, "dialog")
         }
 
         viewModel.country.observe(this) {
